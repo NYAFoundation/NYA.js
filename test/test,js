@@ -1,0 +1,2 @@
+require('./model/model.js');
+require('./model/adapter/adapter.js');

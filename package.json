@@ -1,0 +1,15 @@
+{
+  "name": "NYA",
+  "version": "0.0.1",
+  "description": "Node Yet Another Framework",
+  "main": "nya.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Python-Unicorns/NYA.js.git"
+  },
+  "dependencies": {
+    "gulp": "^3.8.8",
+    "mocha": "^1.21.4",
+    "node-getopt": ">=0.2"
+  }
+}
