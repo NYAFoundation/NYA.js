@@ -1,11 +1,11 @@
 {
-  "name": "NYA",
-  "version": "0.0.1",
+  "name": "nya",
+  "version": "0.0.2-alpha",
   "description": "Node Yet Another Framework",
   "main": "nya.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Python-Unicorns/NYA.js.git"
+    "url": "https://github.com/NYAFoundation/NYA.js.git"
   },
   "dependencies": {
     "kefir": "^0.4.1"
