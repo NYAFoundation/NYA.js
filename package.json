@@ -8,8 +8,12 @@
     "url": "https://github.com/Python-Unicorns/NYA.js.git"
   },
   "dependencies": {
-    "gulp": "^3.8.8",
-    "mocha": "^1.21.4",
-    "node-getopt": ">=0.2"
+    "kefir": "^0.4.1"
+  },
+  "devDependencies": {
+    "chai": "^1.10.0",
+    "istanbul": "^0.3.5",
+    "mocha": "^1.21.5",
+    "sinon": "^1.12.1"
   }
 }
