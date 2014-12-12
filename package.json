@@ -1,6 +1,6 @@
 {
   "name": "nya",
-  "version": "0.0.2-alpha",
+  "version": "0.0.2-alpha-2",
   "description": "Node Yet Another Framework",
   "main": "nya.js",
   "repository": {
@@ -10,6 +10,7 @@
   "dependencies": {
     "kefir": "^0.4.1"
   },
+  "keywords" : ["nya", "FRP", "reactive", "web", "streams"],
   "devDependencies": {
     "chai": "^1.10.0",
     "istanbul": "^0.3.5",
