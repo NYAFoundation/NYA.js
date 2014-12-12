@@ -23,13 +23,11 @@ app = new nya.RequestStream();
 app.get('/', function(request) {
 	request.write('NYA!!!');
 });
-
-
-## Links
-
-- [Wiki](https://github.com/NYAFoundation/NYA.js/wiki) 
-- [NPM](https://www.npmjs.com/package/nya)
  
 //Start your server
 app.start();
 ```
+## Links
+
+- [Wiki](https://github.com/NYAFoundation/NYA.js/wiki) 
+- [NPM](https://www.npmjs.com/package/nya)
