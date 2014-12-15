@@ -2,6 +2,7 @@ var chai = require('chai');
 var mocha = require('mocha');
 var should = chai.should();
 var path = require('path');
+var sinon = require('sinon');
 
 var kefir = require('kefir');
 
@@ -25,6 +26,10 @@ describe('BaseStream', function() {
     it('should have method .emit()', function() {
         baseStream.should.have.a.property('emit');
         baseStream.emit.should.be.a('function');
+    });
+    it('should have method .end()', function() {
+        baseStream.should.have.a.property('end');
+        baseStream.end.should.be.a('function');
     });
     it('should have method .onValue()', function() {
         baseStream.should.have.a.property('onValue');
@@ -155,11 +160,25 @@ describe('BaseStream', function() {
         baseStream.withHandler.should.be.a('function');
     });
 
-
+    describe('.end()', function() {
+        var fn = function() {};
+        it('should return same object', function() {
+            baseStream.end().should.be.an.instanceof(BaseStream);
+        });
+    });
     describe('.onValue()', function() {
         var fn = function() {};
         it('should return same object', function() {
             baseStream.onValue(fn).should.be.an.instanceof(BaseStream);
+        });
+        it('should pass value argument to callback', function() {
+            var stream = new BaseStream();
+            var spy = sinon.spy();
+            stream.onValue(spy);
+            stream.emit(42);
+            spy.called.should.be.equal(true);
+            spy.calledWith(42).should.be.equal(true);
+            delete spy;
         });
     });
 
@@ -168,12 +187,35 @@ describe('BaseStream', function() {
         it('should return same object', function() {
             baseStream.onAny(fn).should.be.an.instanceof(BaseStream);
         });
+        it('should be called on any baseStream event', function() {
+            spy = sinon.spy();
+            stream = new BaseStream();
+            after(function() {
+                delete spy;
+                delete stream;
+            });
+            stream.onAny(spy);
+            stream.emit(42);
+            spy.called.should.be.equal(true);
+            stream.end();
+            spy.callCount.should.be.equal(2);
+        });
     });
 
     describe('.onEnd()', function() {
         var fn = function() {};
         it('should return same object', function() {
             baseStream.onEnd(fn).should.be.an.instanceof(BaseStream);
+        });
+        it('should be called only on baseStream end event', function() {
+            var spy = sinon.spy();
+            stream = new BaseStream();
+            stream.onEnd(spy);
+            stream.emit(42);
+            spy.called.should.be.equal(false);
+            stream.end();
+            spy.called.should.be.equal(true);
+            spy.callCount.should.be.equal(1);
         });
     });
 
@@ -182,12 +224,32 @@ describe('BaseStream', function() {
         it('should return same object', function() {
             baseStream.offValue(fn).should.be.an.instanceof(BaseStream);
         });
+        it('should unsubscribe listener from .onValue()', function() {
+            var stream = new BaseStream();
+            var spy = sinon.spy();
+
+            stream.onValue(spy);
+            stream.offValue(spy);
+            stream.emit(42);
+            spy.called.should.be.equal(false);
+        });
     });
 
     describe('.offAny()', function() {
         var fn = function() {};
         it('should return same object', function() {
             baseStream.offAny(fn).should.be.an.instanceof(BaseStream);
+        });
+        it('should unsubscribe listener from .onAny()', function() {
+            var stream = new BaseStream();
+            var spy = sinon.spy();
+
+            stream.onAny(spy);
+            stream.offAny(spy);
+
+            stream.emit(42);
+            stream.end();
+            spy.called.should.be.equal(false);
         });
     });
 
@@ -196,33 +258,61 @@ describe('BaseStream', function() {
         it('should return same object', function() {
             baseStream.offEnd(fn).should.be.an.instanceof(BaseStream);
         });
+        it('should unsubscribe listener from .onEnd()', function() {
+            var stream = new BaseStream();
+            var spy = sinon.spy();
+
+            stream.onEnd(spy);
+            stream.offEnd(spy);
+
+            stream.end();
+            spy.called.should.be.equal(false);
+        });
     });
 
     describe('.to()', function() {
         var stream = null;
+        var parentStream = null;
         before(function() {
             stream = new BaseStream();
+            parentStream = new BaseStream();
         });
 
         after(function() {
             delete stream;
+            delete parentStream;
         });
 
         it('should return same object', function() {
-            baseStream.to(stream).should.be.an.instanceof(BaseStream);
-        })
+            parentStream.to(stream).should.be.an.instanceof(BaseStream);
+        });
+        it('should subscribe child on parent event', function() {
+            var spy = sinon.spy();
+            stream.onValue(spy);
+            parentStream.emit(42);
+            spy.called.should.be.equal(true);
+        });
     });
     describe('.from()', function() {
         var stream = null;
+        var parentStream = null;
         before(function(){
             stream = new BaseStream();
+            parentStream = new BaseStream();
         });
 
         after(function() {
             delete stream;
+            delete parentStream;
         });
         it('should return same object', function() {
-            baseStream.to(stream).should.be.an.instanceof(BaseStream);  
+            stream.from(parentStream).should.be.an.instanceof(BaseStream);  
+        });
+        it('should subscribe child on parent event', function() {
+            var spy = sinon.spy();
+            stream.onValue(spy);
+            parentStream.emit(42);
+            spy.called.should.be.equal(true);
         });
     });
 
@@ -251,6 +341,121 @@ describe('BaseStream', function() {
         describe('.invoke()', function() {
             it('should return kefir emitter', function() {
                 stream.invoke(fn).should.have.a.property('_subscribers');
+            });
+        });
+        describe('.pluck()', function() {
+            it('should return kefir emitter', function() {
+                stream.pluck(fn).should.have.a.property('_subscribers');
+            });
+        });
+        describe('.not()', function() {
+            it('should return kefir emitter', function() {
+                stream.not().should.have.a.property('_subscribers');
+            });
+        });
+        describe('.timestamp()', function() {
+            it('should return kefir emitter', function() {
+                stream.timestamp().should.have.a.property('_subscribers');
+            });
+        });
+        describe('.tap()', function() {
+            it('should return kefir emitter', function() {
+                stream.tap(fn).should.have.a.property('_subscribers');
+            });
+        });
+        describe('.filter()', function() {
+            it('should return kefir emitter', function() {
+                stream.filter(fn).should.have.a.property('_subscribers');
+            });
+        });
+        describe('.take()', function() {
+            it('should return kefir emitter', function() {
+                stream.take(3).should.have.a.property('_subscribers');
+            });
+        });
+        describe('.takeWhile()', function() {
+            it('should return kefir emitter', function() {
+                stream.takeWhile(fn).should.have.a.property('_subscribers');
+            });
+        });
+        describe('.skip()', function() {
+            it('should return kefir emitter', function() {
+                stream.skip(3).should.have.a.property('_subscribers');
+            });
+        });
+        describe('.skipWhile()', function() {
+            it('should return kefir emitter', function() {
+                stream.skipWhile(fn).should.have.a.property('_subscribers');
+            });
+        });
+        describe('.skipDuplicates()', function() {
+            it('should return kefir emitter', function() {
+                stream.skipDuplicates(fn).should.have.a.property('_subscribers');
+            });
+        });
+        describe('.diff()', function() {
+            it('should return kefir emitter', function() {
+                stream.diff(fn).should.have.a.property('_subscribers');
+            });
+        });
+        describe('.scan()', function() {
+            it('should return kefir emitter', function() {
+                stream.scan(fn).should.have.a.property('_subscribers');
+            });
+        });
+        describe('.reduce()', function() {
+            it('should return kefir emitter', function() {
+                stream.reduce(fn).should.have.a.property('_subscribers');
+            });
+        });
+        describe('.mapEnd()', function() {
+            it('should return kefir emitter', function() {
+                stream.mapEnd(fn).should.have.a.property('_subscribers');
+            });
+        });
+        describe('.skipEnd()', function() {
+            it('should return kefir emitter', function() {
+                stream.skipEnd().should.have.a.property('_subscribers');
+            });
+        });
+        describe('.slidingWindow()', function() {
+            it('should return kefir emitter', function() {
+                stream.slidingWindow(4).should.have.a.property('_subscribers');
+            });
+        });
+        describe('.bufferWhile()', function() {
+            it('should return kefir emitter', function() {
+                stream.bufferWhile(fn).should.have.a.property('_subscribers');
+            });
+        });
+        describe('.delay()', function() {
+            it('should return kefir emitter', function() {
+                stream.delay(4).should.have.a.property('_subscribers');
+            });
+        });
+        describe('.throttle()', function() {
+            it('should return kefir emitter', function() {
+                stream.throttle(4).should.have.a.property('_subscribers');
+            });
+        });
+        describe('.debounce()', function() {
+            it('should return kefir emitter', function() {
+                stream.debounce(4).should.have.a.property('_subscribers');
+            });
+        });
+        describe('.flatten()', function() {
+            it('should return kefir emitter', function() {
+                stream.flatten(fn).should.have.a.property('_subscribers');
+            });
+        });
+        describe('.transduce()', function() {
+            it('should return kefir emitter', function() {
+                stream.transduce(fn).should.have.a.property('_subscribers');
+            });
+        });
+        describe('.withHandler()', function() {
+            it('should return kefir emitter', function() {
+                stream.withHandler(4).should.have.a.property('_subscribers');
             });
         });
     });
