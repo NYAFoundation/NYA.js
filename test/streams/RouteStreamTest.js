@@ -3,11 +3,11 @@ var mocha = require('mocha');
 var should = chai.should();
 var path = require('path');
 
-var RequestStream = require('../../lib/Lib.js').RequestStream;
+var RouteStream = require('../../lib/Lib.js').RouteStream;
 var BaseStream = require('../../lib/streams/BaseStream.js');
 
-describe('RequestStream', function() {
-	var r_stream = new RequestStream();
+describe('RouteStream', function() {
+	var r_stream = new RouteStream();
 	it('should be a instance of BaseStream', function() {
 		r_stream.should.be.an.instanceof(BaseStream);
 	});
