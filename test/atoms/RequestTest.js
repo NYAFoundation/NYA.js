@@ -5,6 +5,11 @@ var Request = require('../../lib/atoms/Request.js');
 
 describe('Request', function() {
 	var request = new Request();
+	var anotherRequest = Request();
+	it('should be instanceof Request', function() {
+		request.should.be.an.instanceof(Request);
+		anotherRequest.should.be.an.instanceof(Request);
+	});
 	it('should have property url', function() {
 		request.should.have.a.property('url');
 	});
