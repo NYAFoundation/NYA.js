@@ -17,19 +17,22 @@ NYA - is a fullstack FRP framework for racket web based on kefir. No models, no 
 ```javascript
 //Import nya.js
 var nya = require('nya');
- 
- 
-//Create your first stream
-app = new nya.RequestStream();
- 
- 
-//Bind listener to all urls begins from "/"
-app.get('/', function(request) {
-	request.write('NYA!!!');
+
+var requests = new nya.RequestStream('http');
+
+var routes = new nya.RouteStream(requests); //automatic pipe binding
+
+var index = routes.onGet().onUrl('/');
+
+var responses = nya.ResponseStream(index); //automatic pipe binding
+
+responses.onValue(function(request) {
+    request.res.writeHead(200, {
+        'Content-Type' : 'text/plain',
+    });
+    request.res.write('NYA!');
+    request.res.end();  
 });
- 
-//Start your server
-app.start();
 ```
 ## Links
 
