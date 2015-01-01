@@ -179,6 +179,7 @@ describe('BaseStream', function() {
             spy.called.should.be.equal(true);
             spy.calledWith(42).should.be.equal(true);
             delete spy;
+            delete stream;
         });
     });
 
@@ -327,135 +328,135 @@ describe('BaseStream', function() {
             delete stream;
         });
         describe('.map()', function() {
-            it('should return kefir emitter', function() {
-                stream.map(fn).should.have.a.property('_subscribers');
+            it('should return stream object', function() {
+                stream.map(fn).should.be.an.instanceof(BaseStream);
             });
         });
 
         describe('.mapTo()', function() {
-            it('should return kefir emitter', function() {
-                stream.mapTo(fn).should.have.a.property('_subscribers');
+            it('should return stream object', function() {
+                stream.mapTo(fn).should.be.an.instanceof(BaseStream);
             });
         });
 
         describe('.invoke()', function() {
-            it('should return kefir emitter', function() {
-                stream.invoke(fn).should.have.a.property('_subscribers');
+            it('should return stream object', function() {
+                stream.invoke(fn).should.be.an.instanceof(BaseStream);
             });
         });
         describe('.pluck()', function() {
-            it('should return kefir emitter', function() {
-                stream.pluck(fn).should.have.a.property('_subscribers');
+            it('should return stream object', function() {
+                stream.pluck(fn).should.be.an.instanceof(BaseStream);
             });
         });
         describe('.not()', function() {
-            it('should return kefir emitter', function() {
-                stream.not().should.have.a.property('_subscribers');
+            it('should return stream object', function() {
+                stream.not().should.be.an.instanceof(BaseStream);
             });
         });
         describe('.timestamp()', function() {
-            it('should return kefir emitter', function() {
-                stream.timestamp().should.have.a.property('_subscribers');
+            it('should return stream object', function() {
+                stream.timestamp().should.be.an.instanceof(BaseStream);
             });
         });
         describe('.tap()', function() {
-            it('should return kefir emitter', function() {
-                stream.tap(fn).should.have.a.property('_subscribers');
+            it('should return stream object', function() {
+                stream.tap(fn).should.be.an.instanceof(BaseStream);
             });
         });
         describe('.filter()', function() {
-            it('should return kefir emitter', function() {
-                stream.filter(fn).should.have.a.property('_subscribers');
+            it('should return stream object', function() {
+                stream.filter(fn).should.be.an.instanceof(BaseStream);
             });
         });
         describe('.take()', function() {
-            it('should return kefir emitter', function() {
-                stream.take(3).should.have.a.property('_subscribers');
+            it('should return stream object', function() {
+                stream.take(3).should.be.an.instanceof(BaseStream);
             });
         });
         describe('.takeWhile()', function() {
-            it('should return kefir emitter', function() {
-                stream.takeWhile(fn).should.have.a.property('_subscribers');
+            it('should return stream object', function() {
+                stream.takeWhile(fn).should.be.an.instanceof(BaseStream);
             });
         });
         describe('.skip()', function() {
-            it('should return kefir emitter', function() {
-                stream.skip(3).should.have.a.property('_subscribers');
+            it('should return stream object', function() {
+                stream.skip(3).should.be.an.instanceof(BaseStream);
             });
         });
         describe('.skipWhile()', function() {
-            it('should return kefir emitter', function() {
-                stream.skipWhile(fn).should.have.a.property('_subscribers');
+            it('should return stream object', function() {
+                stream.skipWhile(fn).should.be.an.instanceof(BaseStream);
             });
         });
         describe('.skipDuplicates()', function() {
-            it('should return kefir emitter', function() {
-                stream.skipDuplicates(fn).should.have.a.property('_subscribers');
+            it('should return stream object', function() {
+                stream.skipDuplicates(fn).should.be.an.instanceof(BaseStream);
             });
         });
         describe('.diff()', function() {
-            it('should return kefir emitter', function() {
-                stream.diff(fn).should.have.a.property('_subscribers');
+            it('should return stream object', function() {
+                stream.diff(fn).should.be.an.instanceof(BaseStream);
             });
         });
         describe('.scan()', function() {
-            it('should return kefir emitter', function() {
-                stream.scan(fn).should.have.a.property('_subscribers');
+            it('should return stream object', function() {
+                stream.scan(fn).should.be.an.instanceof(BaseStream);
             });
         });
         describe('.reduce()', function() {
-            it('should return kefir emitter', function() {
-                stream.reduce(fn).should.have.a.property('_subscribers');
+            it('should return stream object', function() {
+                stream.reduce(fn).should.be.an.instanceof(BaseStream);
             });
         });
         describe('.mapEnd()', function() {
-            it('should return kefir emitter', function() {
-                stream.mapEnd(fn).should.have.a.property('_subscribers');
+            it('should return stream object', function() {
+                stream.mapEnd(fn).should.be.an.instanceof(BaseStream);
             });
         });
         describe('.skipEnd()', function() {
-            it('should return kefir emitter', function() {
-                stream.skipEnd().should.have.a.property('_subscribers');
+            it('should return stream object', function() {
+                stream.skipEnd().should.be.an.instanceof(BaseStream);
             });
         });
         describe('.slidingWindow()', function() {
-            it('should return kefir emitter', function() {
-                stream.slidingWindow(4).should.have.a.property('_subscribers');
+            it('should return stream object', function() {
+                stream.slidingWindow(4).should.be.an.instanceof(BaseStream);
             });
         });
         describe('.bufferWhile()', function() {
-            it('should return kefir emitter', function() {
-                stream.bufferWhile(fn).should.have.a.property('_subscribers');
+            it('should return stream object', function() {
+                stream.bufferWhile(fn).should.be.an.instanceof(BaseStream);
             });
         });
         describe('.delay()', function() {
-            it('should return kefir emitter', function() {
-                stream.delay(4).should.have.a.property('_subscribers');
+            it('should return stream object', function() {
+                stream.delay(4).should.be.an.instanceof(BaseStream);
             });
         });
         describe('.throttle()', function() {
-            it('should return kefir emitter', function() {
-                stream.throttle(4).should.have.a.property('_subscribers');
+            it('should return stream object', function() {
+                stream.throttle(4).should.be.an.instanceof(BaseStream);
             });
         });
         describe('.debounce()', function() {
-            it('should return kefir emitter', function() {
-                stream.debounce(4).should.have.a.property('_subscribers');
+            it('should return stream object', function() {
+                stream.debounce(4).should.be.an.instanceof(BaseStream);
             });
         });
         describe('.flatten()', function() {
-            it('should return kefir emitter', function() {
-                stream.flatten(fn).should.have.a.property('_subscribers');
+            it('should return stream object', function() {
+                stream.flatten(fn).should.be.an.instanceof(BaseStream);
             });
         });
         describe('.transduce()', function() {
-            it('should return kefir emitter', function() {
-                stream.transduce(fn).should.have.a.property('_subscribers');
+            it('should return stream object', function() {
+                stream.transduce(fn).should.be.an.instanceof(BaseStream);
             });
         });
         describe('.withHandler()', function() {
-            it('should return kefir emitter', function() {
-                stream.withHandler(4).should.have.a.property('_subscribers');
+            it('should return stream object', function() {
+                stream.withHandler(4).should.be.an.instanceof(BaseStream);
             });
         });
     });
