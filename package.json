@@ -1,6 +1,6 @@
 {
   "name": "nya",
-  "version": "0.0.2-alpha-3",
+  "version": "0.0.2",
   "description": "Node Yet Another Framework",
   "main": "nya.js",
   "repository": {
@@ -12,7 +12,8 @@
   },
   "scripts": {
     "coverage": "istanbul cover ./node_modules/mocha/bin/_mocha -- -R spec",
-    "lint": "jslint --node ./lib/**/*.js"
+    "lint": "jslint --node ./lib/**/*.js",
+    "check-coverage" : "istanbul check-coverage ./node_modules/mocha/bin/_mocha -- -R spec"
   },
   "keywords": [
     "nya",
