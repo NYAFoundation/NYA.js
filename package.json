@@ -1,6 +1,6 @@
 {
   "name": "nya",
-  "version": "0.0.3-RC",
+  "version": "0.0.3",
   "description": "Node Yet Another Framework",
   "main": "nya.js",
   "repository": {
