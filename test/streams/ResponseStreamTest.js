@@ -19,4 +19,16 @@ describe('ResponseStream', function() {
         var anotherStream = new ResponseStream(new BaseStream());
         anotherStream.origin.should.be.not.equal(null);
     });
+    describe('.process()', function () {
+                
+    });
+    describe('.preprocessing()', function() {
+
+    });
+    describe('.onClose()', function() {
+
+    });
+    describe('.onFinish()', function() {
+
+    });
 });
