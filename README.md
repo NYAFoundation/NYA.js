@@ -1,4 +1,6 @@
 # NYA Framework
+
+[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/NYAFoundation/NYA.js?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Dependency Status](https://david-dm.org/NYAFoundation/NYA.js.svg)](https://david-dm.org/NYAFoundation/NYA.js.svg)
 [![devDependency Status](https://david-dm.org/NYAFoundation/NYA.js/dev-status.svg)](https://david-dm.org/NYAFoundation/NYA.js/dev-status.svg)
 [![Code Climate](https://codeclimate.com/github/NYAFoundation/NYA.js/badges/gpa.svg)](https://codeclimate.com/github/NYAFoundation/NYA.js)
